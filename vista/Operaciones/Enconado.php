@@ -9,13 +9,15 @@
    <section class="section-container">
       <!-- Page content-->
       	<div class="content-wrapper">
-            <div class="content-heading">
-              <div>Enconado</div>
-            </div>
+
             <!-- START card-->
             <div class="card card-default">
                <div class="card-body">
-
+							<div class="row ">
+								 <div class="col-md-12 w-100 text-center ">
+									  <h3>Gestión de Enconado:</h3>
+								 </div>
+							</div>
 
                </div>
            </div>
