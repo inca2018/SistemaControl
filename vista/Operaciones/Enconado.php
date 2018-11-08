@@ -18,6 +18,32 @@
 									  <h3>Gestión de Enconado:</h3>
 								 </div>
 							</div>
+              			 <h5 class="mt-3 mb-3 titulo_area" ><em><b>Lista de Ovillos Enconados:</b></em></h5>
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <div class="row">
+                                   <div class="col-md-12">
+                                        <table class="table w-100 table-hover table-sm dt-responsive nowrap" id="tablaPersona">
+                                            <thead class="thead-light text-center">
+                                                <tr>
+                                                    <th data-priority="1">#</th>
+                                                    <th>ESTADO</th>
+                                                    <th>Nº ORDEN</th>
+                                                    <th>MATERIAL</th>
+                                                    <th>LOTE</th>
+                                                    <th>KILOS</th>
+                                                    <th>Nª DE CONO</th>
+																	 <th>ACCIONES</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                   </div>
+
+                                </div>
+                            </div>
+                     </div>
 
                </div>
            </div>
