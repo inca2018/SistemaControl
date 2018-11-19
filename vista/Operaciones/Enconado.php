@@ -18,12 +18,17 @@
 									  <h3>Gestión de Enconado:</h3>
 								 </div>
 							</div>
+             			 <div class="row">
+                            <div class="col-md-3 offset-9">
+                                <button class="btn btn-success btn-block btn-sm" onclick="NuevoEnconado();"><i class="fa fa-plus fa-lg mr-2"></i> Nuevo Orden de Enconado</button>
+                            </div>
+                        </div>
               			 <h5 class="mt-3 mb-3 titulo_area" ><em><b>Lista de Ovillos Enconados:</b></em></h5>
                         <div class="row ">
                             <div class="col-md-12">
                                 <div class="row">
                                    <div class="col-md-12">
-                                        <table class="table w-100 table-hover table-sm dt-responsive nowrap" id="tablaPersona">
+                                        <table class="table w-100 table-hover table-sm dt-responsive nowrap" id="tablaEnconado">
                                             <thead class="thead-light text-center">
                                                 <tr>
                                                     <th data-priority="1">#</th>
@@ -33,6 +38,7 @@
                                                     <th>LOTE</th>
                                                     <th>KILOS</th>
                                                     <th>Nª DE CONO</th>
+                                                    <th>F.REGISTRO</th>
 																	 <th>ACCIONES</th>
                                                 </tr>
                                             </thead>
@@ -54,5 +60,100 @@
 <!-- Inicio del footer -->
 <?php require_once('../layaout/Footer.php');?>
 <!-- Fin del Footer -->
+
+<div class="modal fade " id="ModalEnconado" role="dialog" aria-labelledby="myModalLabelLarge" aria-hidden="true">
+	<div class="modal-dialog modal-lg  ">
+		<div class="modal-content">
+            <div class="row m-1 bb">
+                <div class="col-md-12">
+                    <h4 class="text-center text-" id="tituloModalEnconado"></h4>
+                </div>
+            </div>
+			<div class="modal-body " >
+				<form id="FormularioEnconado" method="POST" autocomplete="off">
+                     <input type="hidden" name="idEnconado" id="idEnconado">
+                     <div class="row mb-3 mt-1">
+                         <div class="col-md-3">
+                             <label class=""><span class="red">(*) Campos Obligatorios</span></label>
+                         </div>
+                         <div class="col-md-1 offset-8">
+                              <button type="button" class="btn btn-info btn-sm btn-display" title="Limpiar Campos" onclick="LimpiarEnconado();">
+                              <i class="fa fa-trash-alt fa-lg "></i>
+                              </button>
+                         </div>
+                     </div>
+
+					 <div class="row" id="cuerpo">
+					      <div class="col-md-12   bl">
+
+                                <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="EnconadoNombre" class="col-md-5 col-form-label">Numero de Orden:</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control " id="EnconadoNombre" name="EnconadoNombre" data-message="- Campo  Nombre de Enconado"  placeholder="Nombre de Enconado" type="text" maxlength="50" readonly>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 br">
+                                        <div class="form-group row">
+                                            <label for="EnconadoMaterial" class="col-md-5 col-form-label"> Material<span class="red">*</span>:</label>
+                                            <div class="col-md-7">
+                                                <select class="form-control validarPanel" id="EnconadoMaterial" name="EnconadoMaterial" data-message="- Campo Material">
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="EnconadoLote" class="col-md-5 col-form-label">Lote:</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control validarPanel" id="EnconadoLote" name="EnconadoLote" data-message="- Campo  Lote de Enconado"  placeholder="Lote de Enconado" type="text" maxlength="50">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="EnconadoKilos" class="col-md-5 col-form-label">Kilos:</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control validarPanel" id="EnconadoKilos" name="EnconadoKilos" data-message="- Campo  Kilos de Enconado"  placeholder="Kilos de Enconado" type="text" onkeypress="return SoloNumerosModificado(event,8,this.id);">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="EnconadoNumero" class="col-md-5 col-form-label">Numero de Conos:</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control validarPanel" id="EnconadoNumero" name="EnconadoNumero" data-message="- Campo  Numero de Enconado"  placeholder="Numero de Enconado" type="text"  onkeypress="return SoloNumerosModificado(event,8,this.id);">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row mr-1 ml-1">
+                                           <button type="submit" class="col-md-2 btn btn-success btn-sm" title="Guardar">
+                                              <i class="fa fa-save fa-lg mr-2"></i>GUARDAR
+                                           </button>
+
+                                           <button type="button" class="col-md-2 btn btn-danger btn-sm  offset-8" title="Cancelar" onclick="Cancelar();">
+                                              <i class="fa fa-times fa-lg mr-2"></i>CANCELAR
+                                           </button>
+
+                               </div>
+                            </div>
+					 </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <script src="<?php echo $conexionConfig->rutaOP(); ?>vista/js/Enconado.js"></script>

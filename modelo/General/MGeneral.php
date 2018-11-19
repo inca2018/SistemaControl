@@ -28,6 +28,12 @@
          return ejecutarConsulta($sql);
        }
 
+		public function Listar_Materiales(){
+         $sql="SELECT * FROM material";
+         return ejecutarConsulta($sql);
+       }
+
+
 
 
 
