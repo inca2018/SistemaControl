@@ -37,9 +37,9 @@
                                                     <th>MATERIAL</th>
                                                     <th>LOTE</th>
                                                     <th>KILOS</th>
-                                                    <th>Nª DE CONO</th>
+                                                    <th>N° DE CONO</th>
                                                     <th>F.REGISTRO</th>
-																	 <th>ACCIONES</th>
+				                                    <th>ACCIONES</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
