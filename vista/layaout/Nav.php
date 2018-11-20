@@ -139,11 +139,11 @@
 								<?php  }}else{ };?>
 								<?php if(isset($_SESSION['permiso3'])){ if($_SESSION['permiso3']=='1' || $_SESSION['permiso3']==1){ ?>
 
-								<li id="Gestion3" class="">
-									<a href="<?php echo  $conexionConfig->rutaOP().'vista/Operaciones/Tintoreria.php';?>" title="Gestión de Tinteroria">
+								<!-- <li id="Gestion3" class="">
+									<a href="<?php  // echo  $conexionConfig->rutaOP().'vista/Operaciones/Tintoreria.php';?>" title="Gestión de Tinteroria">
 										<span>Gestión de Tinteroria</span>
 									</a>
-								</li>
+								</li> -->
 
 								<?php  }}else{ };?>
 								<?php if(isset($_SESSION['permiso4'])){ if($_SESSION['permiso4']=='1' || $_SESSION['permiso4']==1){ ?>

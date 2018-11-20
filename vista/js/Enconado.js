@@ -270,5 +270,34 @@ function Cancelar() {
     $("#ModalEnconado").modal("hide");
 }
 
+function EnviarOVillado(idEnconado) {
+    swal({
+        title: "Enviar?",
+        text: "Esta Seguro que desea Enviar la Orden al Area de  Ovillado!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si, Enviar!",
+        closeOnConfirm: false
+    }, function () {
+        ajaxEnviarEnconado(idEnconado);
+    });
+}
+
+function ajaxEnviarEnconado(idEnconado) {
+    $.post("../../controlador/Gestion/CEnconado.php?op=Enviar_Enconado", {
+        idEnconado: idEnconado
+    }, function (data, e) {
+        data = JSON.parse(data);
+        var Enviar = data.Enviar;
+        var Mensaje = data.Mensaje;
+        if (!Enviar) {
+            swal("Error", Mensaje, "error");
+        } else {
+            swal("Enviado!", Mensaje, "success");
+            tablaEnconado.ajax.reload();
+        }
+    });
+}
 
 init();

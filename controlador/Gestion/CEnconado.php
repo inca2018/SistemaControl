@@ -21,10 +21,19 @@
 
 
     function BuscarEstado($reg){
-        if($reg->Estado_idEstado=='1' || $reg->Estado_idEstado==1 ){
-            return '<div class="badge badge-success">'.$reg->nombreEstado.'</div>';
-        }elseif($reg->Estado_idEstado=='2' || $reg->Estado_idEstado==2){
-            return '<div class="badge badge-danger">'.$reg->nombreEstado.'</div>';
+
+        if($reg->Estado_idEstado=='5' || $reg->Estado_idEstado==5){
+			   return '<div class="badge badge-purple">ENVIADO A OVILLADO</div>';
+		  }elseif($reg->Estado_idEstado=='6' || $reg->Estado_idEstado==6){
+			   return '<div class="badge badge-warning">EN PROCESO DE CALIDAD</div>';
+		  }elseif($reg->Estado_idEstado=='7' || $reg->Estado_idEstado==7){
+			   return '<div class="badge badge-green">'.$reg->nombreEstado.'</div>';
+		  }elseif($reg->Estado_idEstado=='8' || $reg->Estado_idEstado==8){
+			   return '<div class="badge badge-warning">'.$reg->nombreEstado.'</div>';
+		  }elseif($reg->Estado_idEstado=='9' || $reg->Estado_idEstado==9){
+			   return '<div class="badge badge-warning">'.$reg->nombreEstado.'</div>';
+		  }elseif($reg->Estado_idEstado=='10' || $reg->Estado_idEstado==10){
+			   return '<div class="badge badge-info">'.$reg->nombreEstado.'</div>';
         }else{
              return '<div class="badge badge-primary">'.$reg->nombreEstado.'</div>';
         }
@@ -32,6 +41,7 @@
     function BuscarAccion($reg){
         if($reg->Estado_idEstado==1 || $reg->Estado_idEstado==2 || $reg->Estado_idEstado==10){
             return '
+				 <button type="button"  title="Enviar a Ovillado" class="btn btn-primary btn-sm" onclick="EnviarOVillado('.$reg->idOrden.')"><i class="far fa-share-square"></i></button>
             <button type="button" title="Editar" class="btn btn-warning btn-sm" onclick="EditarEnconado('.$reg->idOrden.')"><i class="fa fa-edit"></i></button>
                <button type="button"  title="Eliminar" class="btn btn-danger btn-sm" onclick="EliminarEnconado('.$reg->idOrden.')"><i class="fa fa-trash"></i></button>
                ';
@@ -139,8 +149,19 @@
 			$rspta=$gestion->Recuperar_Enconado($idEnconado);
          echo json_encode($rspta);
       break;
+
 		 case 'RecuperarCorrelativo':
 			$rspta=$gestion->RecuperarCorrelativo();
+         echo json_encode($rspta);
+      break;
+
+
+      case 'Enviar_Enconado':
+         $rspta = array("Mensaje"=>"","Enviar"=>false,"Error"=>false);
+         /*------ Cuando el usuario ya se esta facturando, ya no se puede eliminar --------*/
+         $rspta['Enviar']=$gestion->Enviar_Enconado($idEnconado);
+
+         $rspta['Enviar']?$rspta['Mensaje']="Orden Enviada.":$rspta['Mensaje']="Orden no se pudo enviar comuniquese con el area de soporte";
          echo json_encode($rspta);
       break;
 

@@ -28,7 +28,7 @@
 
         }else{
 
-             $sql="CALL `SP_ORDEN_ACTUALIZAR`('$EnconadoNombre','$EnconadoMaterial','$EnconadoLote','$EnconadoKilos','$EnconadoNumero','$login_idLog','$idEnconado');";
+             $sql="CALL `SP_ORDEN_ACTUALIZAR`('$EnconadoMaterial','$EnconadoLote','$EnconadoKilos','$EnconadoNumero','$login_idLog','$idEnconado');";
         }
 
          return ejecutarConsulta($sql);
@@ -38,7 +38,10 @@
 			$sql="CALL `SP_ORDEN_RECUPERAR`('$idEnconado');";
 			return ejecutarConsultaSimpleFila($sql);
 		}
-
+      public function Enviar_Enconado($idEnconado){
+			$sql="UPDATE `orden` SET `Estado_idEstado`=5 WHERE `idOrden`='$idEnconado' ";
+			return ejecutarConsulta($sql);
+		}
 
 
    }
