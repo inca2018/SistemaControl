@@ -20,15 +20,6 @@
 		$EnconadoNumero=isset($_POST["EnconadoNumero"])?limpiarCadena($_POST["EnconadoNumero"]):"";
 
 
-
-
-   /* $date = str_replace('/', '-', $fechaInicio);
-    $fechaInicio = date("Y-m-d", strtotime($date));
- 	 $date = str_replace('/', '-', $fechaFin);
-    $fechaFin = date("Y-m-d", strtotime($date));*/
-
-
-
     function BuscarEstado($reg){
         if($reg->Estado_idEstado=='1' || $reg->Estado_idEstado==1 ){
             return '<div class="badge badge-success">'.$reg->nombreEstado.'</div>';
@@ -72,7 +63,7 @@
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Enconado.";
                 }else{
 
-                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoEnconado,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog);
+                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Enconado se Actualizo Correctamente.";
@@ -129,7 +120,7 @@
       case 'Eliminar_Enconado':
          $rspta = array("Mensaje"=>"","Eliminar"=>false,"Error"=>false);
          /*------ Cuando el usuario ya se esta facturando, ya no se puede eliminar --------*/
-         $rspta['Eliminar']=$gestion->Eliminar_Enconado($idEnconado,1,$login_idLog);
+         $rspta['Eliminar']=$gestion->Eliminar_Enconado($idEnconado);
 
          $rspta['Eliminar']?$rspta['Mensaje']="Enconado Eliminado.":$rspta['Mensaje']="Enconado no se pudo eliminar comuniquese con el area de soporte";
          echo json_encode($rspta);

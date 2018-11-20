@@ -188,7 +188,7 @@
 								</li>
 							</ul>
 						</li>
-						<?php  }}else{ };?>
+						<?php }}else{ };?>
 
 						<?php if(isset($_SESSION['permiso6'])){ if($_SESSION['permiso6']=='1' || $_SESSION['permiso6']==1){ ?>
 						<li id="Servicios" class=" ">

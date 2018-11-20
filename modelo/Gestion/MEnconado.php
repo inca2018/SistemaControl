@@ -15,9 +15,8 @@
            $sql="CALL `SP_ORDEN_LISTAR`();";
            return ejecutarConsulta($sql);
        }
-      public function Eliminar_Enconado($idEnconado,$codigo,$idCreador){
-           $sql="CALL `SP_ORDEN_HABILITACION`('$idEnconado','$codigo','$idCreador');";
-
+      public function Eliminar_Enconado($idEnconado){
+           $sql="DELETE FROM `orden` WHERE `idOrden`='$idEnconado'";
            return ejecutarConsulta($sql);
        }
 
