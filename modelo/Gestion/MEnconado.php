@@ -20,15 +20,20 @@
            return ejecutarConsulta($sql);
        }
 
-      public function RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog){
+      public function RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog,$EnconadoObservacion){
         $sql="";
 
+          if($EnconadoObservacion=="" || $EnconadoObservacion==null || empty($EnconadoObservacion)){
+              $EnconadoObservacion="-1";
+          }
+
+
         if($idEnconado=="" || $idEnconado==null || empty($idEnconado)){
-             $sql="CALL `SP_ORDEN_REGISTRO`('$EnconadoNombre','$EnconadoMaterial','$EnconadoLote','$EnconadoKilos','$EnconadoNumero','$login_idLog');";
+             $sql="CALL `SP_ORDEN_REGISTRO`('$EnconadoNombre','$EnconadoMaterial','$EnconadoLote','$EnconadoKilos','$EnconadoNumero','$login_idLog','$EnconadoObservacion');";
 
         }else{
 
-             $sql="CALL `SP_ORDEN_ACTUALIZAR`('$EnconadoMaterial','$EnconadoLote','$EnconadoKilos','$EnconadoNumero','$login_idLog','$idEnconado');";
+             $sql="CALL `SP_ORDEN_ACTUALIZAR`('$EnconadoMaterial','$EnconadoLote','$EnconadoKilos','$EnconadoNumero','$login_idLog','$idEnconado','$EnconadoObservacion');";
         }
 
          return ejecutarConsulta($sql);
@@ -41,6 +46,11 @@
       public function Enviar_Enconado($idEnconado){
 			$sql="UPDATE `orden` SET `Estado_idEstado`=5 WHERE `idOrden`='$idEnconado' ";
 			return ejecutarConsulta($sql);
+		}
+
+       public function RecuperarRechazo($idEnconado){
+			$sql="SELECT o.RechazoEnconado as Rechazo,DATE_FORMAT(o.fechaRechazoEnconado,'%d/%m/%Y') as FechaRechazo FROM orden o WHERE o.idOrden='$idEnconado';";
+			return ejecutarConsultaSimpleFila($sql);
 		}
 
 

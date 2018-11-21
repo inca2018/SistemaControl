@@ -23,13 +23,18 @@
 	$OvilladoPeso=isset($_POST["OvilladoPeso"])?limpiarCadena($_POST["OvilladoPeso"]):"";
 	$OvilladoLote=isset($_POST["OvilladoLote"])?limpiarCadena($_POST["OvilladoLote"]):"";
 	$OvilladoCantidad=isset($_POST["OvilladoCantidad"])?limpiarCadena($_POST["OvilladoCantidad"]):"";
+$OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["OvilladoObservacion"]):"";
 
 	$OvilladoMaterial=isset($_POST["idMaterialOculto"])?limpiarCadena($_POST["idMaterialOculto"]):"";
 
     function BuscarEstado($reg){
 
        if($reg->Estado_idEstado=='5' || $reg->Estado_idEstado==5){
-			   return '<div class="badge badge-purple">'.$reg->nombreEstado.'</div>';
+               if($reg->RechazoOvillado==null){
+                    return '<div class="badge badge-purple">'.$reg->nombreEstado.'</div>';
+               }else{
+                    return '<div class="badge badge-danger">ORDEN RECHAZADA POR CALIDAD</div>';
+               }
 		 }elseif($reg->Estado_idEstado=='1' || $reg->Estado_idEstado==1){
 			   return '<div class="badge badge-success">'.$reg->nombreEstado.'</div>';
 		  }elseif($reg->Estado_idEstado=='2' || $reg->Estado_idEstado==2){
@@ -37,7 +42,7 @@
 		  }elseif($reg->Estado_idEstado=='6' || $reg->Estado_idEstado==6){
 			   return '<div class="badge badge-warning">ENVIADO A CALIDAD</div>';
 		  }elseif($reg->Estado_idEstado=='7' || $reg->Estado_idEstado==7){
-			   return '<div class="badge badge-green">'.$reg->nombreEstado.'</div>';
+			   return '<div class="badge badge-success">'.$reg->nombreEstado.'</div>';
 		  }elseif($reg->Estado_idEstado=='8' || $reg->Estado_idEstado==8){
 			   return '<div class="badge badge-warning">'.$reg->nombreEstado.'</div>';
 		  }elseif($reg->Estado_idEstado=='9' || $reg->Estado_idEstado==9){
@@ -62,8 +67,13 @@
             $resp.='<button type="button"  title="Enviar a Calidad" class="btn btn-primary btn-sm" onclick="EnviarCalidad('.$reg->idOrden.')"><i class="far fa-share-square"></i></button><button type="button"  title="Gestión de Ordenes de Ovillado" class="btn btn-purple btn-sm ml-2" onclick="OrdenesOvillado('.$reg->idOrden.')"><i class="fas fa-list-ul"></i></button>';
         }elseif($reg->Estado_idEstado==6){
 			   $resp.='<button type="button"  title="Mostrar Ordenes de Ovillado" class="btn btn-primary btn-sm ml-2" onclick="OrdenesOvilladoLista('.$reg->idOrden.')"><i class="fas fa-list-ul"></i></button>';
-		  }
+		  }elseif($reg->Estado_idEstado==7){
+              $resp.='<button type="button"  title="Mostrar Ordenes de Ovillado" class="btn btn-primary btn-sm ml-2" onclick="OrdenesOvilladoLista('.$reg->idOrden.')"><i class="fas fa-list-ul"></i></button>';
+          }
 
+       if($reg->RechazoOvillado!=null){
+             $resp.= '<button type="button"  title="Información de Rechazo" class="btn btn-danger btn-sm ml-2" onclick="InformacionRechazo('.$reg->idOrden.')"><i class="fas fa-info"></i></button>';
+          }
 
 		 return $resp;
     }
@@ -76,7 +86,6 @@
                ';
         }
 
-
 		 return $resp;
     }
 
@@ -88,7 +97,7 @@
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Orden de Trabajo de Ovillado.";
                 }else{
-                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad);
+                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Orden Trabajo de Ovillado se registro Correctamente.";
@@ -102,7 +111,7 @@
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Orden Trabajo de Ovillado.";
                 }else{
-                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad);
+                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Orden Trabajo de Ovillado se Actualizo Correctamente.";
@@ -133,6 +142,7 @@
 		 case 'listar_trabajadores':
 
       		$rpta = $general->Listar_Personas_Todo();
+            echo '<option value="0"> -- SELECCIONE -- </option> ';
          	while ($reg = $rpta->fetch_object()){
 					echo '<option   value=' . $reg->idPersona. '>' . $reg->nombrePersona.' '.$reg->apellidoPaterno.' '.$reg->apellidoMaterno.' DNI: '.$reg->DNI. '</option>';
          	}
@@ -148,11 +158,11 @@
                "1"=>BuscarEstado($reg),
                "2"=>$reg->NumOrden,
                "3"=>$reg->Descripcion,
-					"4"=>$reg->Lote,
-					"5"=>$reg->Kilos,
-					"6"=>$reg->NumConos,
-				   "7"=>$reg->fechaRegistro,
-					"8"=>BuscarAccion($reg)
+                "4"=>$reg->Lote,
+                "5"=>$reg->Kilos,
+                "6"=>$reg->NumConos,
+               "7"=>$reg->fechaRegistro,
+                "8"=>BuscarAccion($reg)
             );
          }
          $results = array(
@@ -253,7 +263,10 @@
          echo json_encode($rspta);
       break;
 
-
+       case 'RecuperarRechazo':
+			$rspta=$gestion->RecuperarRechazo($idEnconado);
+         echo json_encode($rspta);
+      break;
    }
 
 

@@ -21,11 +21,14 @@ function Listar_Enconado() {
         "columnDefs": [
             {
                 "className": "text-center",
-                "targets": [1, 2]
+                "targets": [0,1, 2,4,7,8]
             }
             , {
                 "className": "text-left",
                 "targets": [0]
+            }, {
+                "className": "text-right",
+                "targets": [5,6]
             }
          , ],
         buttons: [
@@ -109,8 +112,6 @@ function ajaxEnviarCalidad(idEnconado) {
         }
     });
 }
-
-
 function OrdenesOvilladoLista(idOrden){
 	$("#ModalTrabajos").modal("show");
 	Listar_Gestion_lista(idOrden);
@@ -133,7 +134,7 @@ function Listar_Gestion_lista(idOrden) {
         "columnDefs": [
             {
                 "className": "text-center",
-                "targets": [1, 2]
+                "targets": [1, 2,3,4,5,6,7]
             }
             , {
                 "className": "text-left",
@@ -204,7 +205,7 @@ function Listar_Gestion_lista(idOrden) {
         "columnDefs": [
             {
                 "className": "text-center",
-                "targets": [1, 2]
+                "targets": [1, 2,3,4,5,6,7,8]
             }
             , {
                 "className": "text-left",
@@ -259,5 +260,21 @@ function Listar_Gestion_lista(idOrden) {
 			}
 
 }
+
+function InformacionRechazo(idEnconado) {
+
+    $("#ModalRechazo").modal("show");
+
+    $.post("../../controlador/Gestion/COvillado.php?op=RecuperarRechazo", {
+        "idEnconado": idEnconado
+    }, function (data, status) {
+        data = JSON.parse(data);
+        console.log(data);
+
+        $("#RechazoObservacion").val(data.Rechazo);
+        $("#FechaRechazo").val(data.FechaRechazo);
+
+    });
+  }
 
 init();

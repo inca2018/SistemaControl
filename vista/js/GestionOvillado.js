@@ -77,7 +77,7 @@ function LimpiarOvillado() {
     $('#FormularioOvillado')[0].reset();
     $("#idOvilladoGestion").val("");
      $("idMaterialOculto").val("");
-	$('#OvilloTrabajador').val("").trigger('change');
+	$('#OvilloTrabajador').val("0").trigger('change');
 }
 function NuevoOvillado() {
     $("#ModalOvillado").modal({
@@ -88,7 +88,7 @@ function NuevoOvillado() {
     $("#tituloModalOvillado").empty();
     $("#tituloModalOvillado").append("Nuevo Orden de Trabajo de Ovillado:");
     RecuperarCorrelativo();
-	 RecuperarMaterial();
+    RecuperarMaterial();
 }
 function RecuperarCorrelativo() {
     //solicitud de recuperar Proveedor
@@ -212,6 +212,7 @@ function RecuperarOvillado(idGestionOvillo) {
             $("#OvilladoPeso").val(data.PesoOvillo);
             $("#OvilladoLote").val(data.LoteOvillo);
             $("#OvilladoCantidad").val(data.Cantidadovillos);
+              $("#OvilladoObservacion").val(data.Observaciones);
 
  				$('#OvilloTrabajador').val(data.Persona_idPersona).trigger('change');
     		});
@@ -249,5 +250,12 @@ function ajaxEliminarOvillado(idOvilladoGestion) {
             tablaGestionOvillado.ajax.reload();
         }
     });
+}
+
+
+function Cancelar() {
+    LimpiarOvillado();
+    $("#ModalOvillado").modal("hide");
+
 }
 init();

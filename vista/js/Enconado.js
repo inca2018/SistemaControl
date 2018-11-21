@@ -93,11 +93,14 @@ function Listar_Enconado() {
         "columnDefs": [
             {
                 "className": "text-center",
-                "targets": [1, 2]
+                "targets": [0, 1, 2, 4, 7, 8]
             }
             , {
                 "className": "text-left",
-                "targets": [0]
+                "targets": [3, ]
+            }, {
+                "className": "text-right",
+                "targets": [5, 6]
             }
          , ],
         buttons: [
@@ -154,6 +157,7 @@ function NuevoEnconado() {
     $("#ModalEnconado").modal("show");
     $("#tituloModalEnconado").empty();
     $("#tituloModalEnconado").append("Nuevo Orden de Trabajo:");
+    $("#boton_bloqueo").show();
     RecuperarCorrelativo();
 }
 
@@ -165,6 +169,19 @@ function EditarEnconado(idEnconado) {
     $("#ModalEnconado").modal("show");
     $("#tituloModalEnconado").empty();
     $("#tituloModalEnconado").append("Editar Enconado:");
+    $("#boton_bloqueo").show();
+    RecuperarEnconado(idEnconado);
+}
+
+function Informacion(idEnconado) {
+    $("#ModalEnconado").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    $("#ModalEnconado").modal("show");
+    $("#tituloModalEnconado").empty();
+    $("#tituloModalEnconado").append("Editar Enconado:");
+    $("#boton_bloqueo").hide();
     RecuperarEnconado(idEnconado);
 }
 
@@ -183,6 +200,8 @@ function RecuperarEnconado(idEnconado) {
             $("#EnconadoLote").val(data.Lote);
             $("#EnconadoKilos").val(data.Kilos);
             $("#EnconadoNumero").val(data.NumConos);
+            $("#EnconadoObservacion").val(data.Observaciones);
+
 
         });
 
@@ -268,6 +287,7 @@ function LimpiarEnconado() {
 function Cancelar() {
     LimpiarEnconado();
     $("#ModalEnconado").modal("hide");
+
 }
 
 function EnviarOVillado(idEnconado) {
@@ -299,5 +319,21 @@ function ajaxEnviarEnconado(idEnconado) {
         }
     });
 }
+
+function InformacionRechazo(idEnconado) {
+
+    $("#ModalRechazo").modal("show");
+
+    $.post("../../controlador/Gestion/CEnconado.php?op=RecuperarRechazo", {
+        "idEnconado": idEnconado
+    }, function (data, status) {
+        data = JSON.parse(data);
+        console.log(data);
+
+        $("#RechazoObservacion").val(data.Rechazo);
+        $("#FechaRechazo").val(data.FechaRechazo);
+
+    });
+  }
 
 init();

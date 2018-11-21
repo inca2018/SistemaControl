@@ -29,15 +29,19 @@
            return ejecutarConsulta($sql);
        }
 
-      public function RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad){
+      public function RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion){
         $sql="";
 
+          if($OvilladoObservacion=="" || $OvilladoObservacion==null || empty($OvilladoObservacion)){
+              $OvilladoObservacion="-1";
+          }
         if($idOvilladoGestion=="" || $idOvilladoGestion==null || empty($idOvilladoGestion)){
-             $sql="CALL `SP_GESTION_REGISTRO`('$idOrden','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoMaterial','$OvilladoCantidad','$OvilloTrabajador');";
+             $sql="CALL `SP_GESTION_REGISTRO`('$idOrden','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoMaterial','$OvilladoCantidad','$OvilloTrabajador','$OvilladoObservacion');";
 
         }else{
-             $sql="CALL `SP_GESTION_ACTUALIZAR`('$idOvilladoGestion','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoCantidad','$OvilloTrabajador');";
+             $sql="CALL `SP_GESTION_ACTUALIZAR`('$idOvilladoGestion','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoCantidad','$OvilloTrabajador','$OvilladoObservacion');";
         }
+
          return ejecutarConsulta($sql);
       }
 
@@ -55,7 +59,10 @@
 			$sql="SELECT COUNT(*) as Cantidad FROM ovillado ov WHERE ov.Orden_idOrden='$idEnconado'";
 			return ejecutarConsultaSimpleFila($sql);
 		}
-
+        public function RecuperarRechazo($idEnconado){
+			$sql="SELECT o.RechazoOvillado as Rechazo,DATE_FORMAT(o.fechaRechazoOvillado,'%d/%m/%Y') as FechaRechazo FROM orden o WHERE o.idOrden='$idEnconado';";
+			return ejecutarConsultaSimpleFila($sql);
+		}
 
    }
 

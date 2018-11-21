@@ -18,6 +18,7 @@
 		$EnconadoLote=isset($_POST["EnconadoLote"])?limpiarCadena($_POST["EnconadoLote"]):"";
 		$EnconadoKilos=isset($_POST["EnconadoKilos"])?limpiarCadena($_POST["EnconadoKilos"]):"";
 		$EnconadoNumero=isset($_POST["EnconadoNumero"])?limpiarCadena($_POST["EnconadoNumero"]):"";
+        $EnconadoObservacion=isset($_POST["EnconadoObservacion"])?limpiarCadena($_POST["EnconadoObservacion"]):"";
 
 
     function BuscarEstado($reg){
@@ -27,27 +28,39 @@
 		  }elseif($reg->Estado_idEstado=='6' || $reg->Estado_idEstado==6){
 			   return '<div class="badge badge-warning">EN PROCESO DE CALIDAD</div>';
 		  }elseif($reg->Estado_idEstado=='7' || $reg->Estado_idEstado==7){
-			   return '<div class="badge badge-green">'.$reg->nombreEstado.'</div>';
+			   return '<div class="badge badge-success">'.$reg->nombreEstado.'</div>';
 		  }elseif($reg->Estado_idEstado=='8' || $reg->Estado_idEstado==8){
 			   return '<div class="badge badge-warning">'.$reg->nombreEstado.'</div>';
 		  }elseif($reg->Estado_idEstado=='9' || $reg->Estado_idEstado==9){
 			   return '<div class="badge badge-warning">'.$reg->nombreEstado.'</div>';
 		  }elseif($reg->Estado_idEstado=='10' || $reg->Estado_idEstado==10){
-			   return '<div class="badge badge-info">'.$reg->nombreEstado.'</div>';
+                if($reg->RechazoEnconado==null || $reg->RechazoEnconado==""){
+                     return '<div class="badge badge-info">'.$reg->nombreEstado.'</div>';
+                }else{
+                    return '<div class="badge badge-danger">ORDEN RECHAZADA POR CALIDAD</div>';
+                }
+
         }else{
              return '<div class="badge badge-primary">'.$reg->nombreEstado.'</div>';
         }
     }
     function BuscarAccion($reg){
+        $respuesta="";
         if($reg->Estado_idEstado==1 || $reg->Estado_idEstado==2 || $reg->Estado_idEstado==10){
-            return '
+            $respuesta.= '
 				 <button type="button"  title="Enviar a Ovillado" class="btn btn-primary btn-sm" onclick="EnviarOVillado('.$reg->idOrden.')"><i class="far fa-share-square"></i></button>
             <button type="button" title="Editar" class="btn btn-warning btn-sm" onclick="EditarEnconado('.$reg->idOrden.')"><i class="fa fa-edit"></i></button>
                <button type="button"  title="Eliminar" class="btn btn-danger btn-sm" onclick="EliminarEnconado('.$reg->idOrden.')"><i class="fa fa-trash"></i></button>
                ';
-        }elseif($reg->Estado_idEstado==4){
-            return '<button type="button"  title="Habilitar" class="btn btn-info btn-sm" onclick="HabilitarEnconado('.$reg->idOrden.')"><i class="fa fa-sync"></i></button>';
+        }elseif($reg->Estado_idEstado==5 || $reg->Estado_idEstado==6 || $reg->Estado_idEstado==7){
+            $respuesta.= '<button type="button"  title="Detalles de Orden" class="btn btn-info btn-sm" onclick="Informacion('.$reg->idOrden.')"><i class="fas fa-info"></i></button>';
         }
+
+         if($reg->RechazoEnconado!=null){
+             $respuesta.= '<button type="button"  title="Información de Rechazo" class="btn btn-danger btn-sm ml-2" onclick="InformacionRechazo('.$reg->idOrden.')"><i class="fas fa-info"></i></button>';
+          }
+
+        return $respuesta;
     }
 
    switch($_GET['op']){
@@ -58,7 +71,7 @@
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Enconado.";
                 }else{
-                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog);
+                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog,$EnconadoObservacion);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Enconado se registro Correctamente.";
@@ -73,7 +86,7 @@
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Enconado.";
                 }else{
 
-                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog);
+                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog,$EnconadoObservacion);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Enconado se Actualizo Correctamente.";
@@ -147,6 +160,11 @@
 
       case 'RecuperarInformacion_Enconado':
 			$rspta=$gestion->Recuperar_Enconado($idEnconado);
+         echo json_encode($rspta);
+      break;
+
+      case 'RecuperarRechazo':
+			$rspta=$gestion->RecuperarRechazo($idEnconado);
          echo json_encode($rspta);
       break;
 

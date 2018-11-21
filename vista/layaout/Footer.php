@@ -78,6 +78,10 @@
    <script src="<?php echo $conexionConfig->ruta(); ?>vendor/datatable/JSZip-2.5.0/jszip.min.js"></script>
    <script src="<?php echo $conexionConfig->ruta(); ?>vendor/datatables.net-buttons/js/buttons.print.js"></script>
    <script src="<?php echo $conexionConfig->ruta(); ?>vendor/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+
+
+   <script src="<?php echo $conexionConfig->ruta(); ?>vendor/datatables.net-buttons/js/pdfmake.min.js"></script>
+   <script src="<?php echo $conexionConfig->ruta(); ?>vendor/datatables.net-buttons/js/vfs_fonts.js"></script>
    <!-- responsive -->
    <script src="<?php echo $conexionConfig->ruta(); ?>vendor/datatable/Responsive-2.2.2/js/dataTables.responsive.min.js"></script>
    <script src="<?php echo $conexionConfig->ruta(); ?>vendor/datatable/Responsive-2.2.2/js/responsive.bootstrap4.min.js"></script>
