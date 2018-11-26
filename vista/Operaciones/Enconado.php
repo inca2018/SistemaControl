@@ -138,7 +138,7 @@
                                 <div class="col-md-12">
 
                                         <label for="EnconadoNumero" class="  col-form-label">Observaciones Adicionales:</label>
-                                        <textarea class="form-control validarPanel" id="EnconadoObservacion" name="EnconadoObservacion"></textarea>
+                                        <textarea class="form-control " id="EnconadoObservacion" name="EnconadoObservacion"></textarea>
 
                                 </div>
 
