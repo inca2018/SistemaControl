@@ -22,7 +22,7 @@ function RegistroEnconado(event) {
     event.preventDefault(); //No se activará la acción predeterminada del evento
     var error = "";
 
-    $(".validarPanel").each(function () {
+    $("#FormularioEnconado .validarPanel").each(function () {
         if ($(this).val() == " " || $(this).val() == 0) {
             error = error + $(this).data("message") + "<br>";
         }
