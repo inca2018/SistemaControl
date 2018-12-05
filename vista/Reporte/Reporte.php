@@ -94,8 +94,8 @@
                                             <th width="10%">Fecha</th>
                                             <th width="25%">Empleado</th>
                                             <th width="10%">Resultado Alcanzado(RA)</th>
-                                            <th width="10%">Producción Pendiente(PP)</th>
                                             <th width="10%">Producción del Dia(PD)</th>
+                                            <th width="10%">Producción Pendiente(PP)</th>
                                             <th width="10%">Total(PP+PD=RE)</th>
                                             <th width="10%">(RA/RE)</th>
                                             <th width="10%">% Por Dia</th>
