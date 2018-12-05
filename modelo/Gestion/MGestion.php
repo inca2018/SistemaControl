@@ -229,6 +229,18 @@ INNER JOIN tipotarjeta tt ON tt.idTipoTarjeta=pg.TipoTarjeta_idTipoTarjeta WHERE
     }
 
 
+        public function BuscarReporteIndicadores1($Inicio,$Fin){
+           $sql="CALL `SP_GENERAR_REPORTE`('$Inicio','$Fin');";
+
+			return ejecutarConsulta($sql);
+       }
+        public function BuscarReporteIndicadores2($Inicio,$Fin){
+           $sql="CALL `SP_GENERAR_REPORTE2`('$Inicio','$Fin');";
+
+			return ejecutarConsulta($sql);
+       }
+
+
    }
 
 ?>

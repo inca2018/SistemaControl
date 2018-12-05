@@ -72,6 +72,7 @@ function AjaxRegistroEnconado() {
 
 function Listar_Materiales() {
     $.post("../../controlador/Gestion/CEnconado.php?op=listar_materiales", function (ts) {
+        $("#EnconadoMaterial").empty();
         $("#EnconadoMaterial").append(ts);
     });
 }
@@ -193,6 +194,7 @@ function RecuperarEnconado(idEnconado) {
         data = JSON.parse(data);
         console.log(data);
         $.post("../../controlador/Gestion/CEnconado.php?op=listar_materiales", function (ts) {
+            $("#EnconadoMaterial").empty();
             $("#EnconadoMaterial").append(ts);
             $("#idEnconado").val(data.idOrden);
             $("#EnconadoNombre").val(data.NumOrden);
@@ -200,6 +202,7 @@ function RecuperarEnconado(idEnconado) {
             $("#EnconadoLote").val(data.Lote);
             $("#EnconadoKilos").val(data.Kilos);
             $("#EnconadoNumero").val(data.NumConos);
+            $("#EnconadoPedido").val(data.PedidoOvillo);
             $("#EnconadoObservacion").val(data.Observaciones);
 
 

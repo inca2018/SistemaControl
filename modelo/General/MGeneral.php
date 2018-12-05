@@ -33,6 +33,11 @@
          return ejecutarConsulta($sql);
        }
 
+       public function Listar_Personas_Trabajadores(){
+         $sql="select * from persona p INNER JOIN usuario u On u.Persona_idPersona=p.idPersona INNER JOIN perfil per On per.idPerfil=u.Perfil_idPerfil WHERE per.idPerfil=8";
+         return ejecutarConsulta($sql);
+       }
+
 
 
 

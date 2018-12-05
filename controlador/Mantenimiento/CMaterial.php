@@ -11,6 +11,8 @@
 
 	$MaterialEstado=isset($_POST["MaterialEstado"])?limpiarCadena($_POST["MaterialEstado"]):"";
 
+   $MaterialPedidos=isset($_POST["MaterialPedidos"])?limpiarCadena($_POST["MaterialPedidos"]):"";
+
 
 	$login_idLog=$_SESSION['idUsuario'];
 
@@ -50,7 +52,7 @@
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Material.";
                 }else{
-                    $RespuestaRegistro=$mantenimiento->RegistroMaterial($idMaterial,$MaterialNombre,$MaterialEstado,$login_idLog);
+                    $RespuestaRegistro=$mantenimiento->RegistroMaterial($idMaterial,$MaterialNombre,$MaterialEstado,$MaterialPedidos,$login_idLog);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Material se registro Correctamente.";
@@ -70,7 +72,7 @@
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Material.";
                 }else{
 
-                    $RespuestaRegistro=$mantenimiento->RegistroMaterial($idMaterial,$MaterialNombre,$MaterialEstado,$login_idLog);
+                    $RespuestaRegistro=$mantenimiento->RegistroMaterial($idMaterial,$MaterialNombre,$MaterialEstado,$MaterialPedidos,$login_idLog);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Material se Actualizo Correctamente.";
@@ -100,8 +102,9 @@
                "0"=>'',
                "1"=>BuscarEstado($reg),
                "2"=>$reg->Descripcion,
-               "3"=>$reg->fechaRegistro,
-               "4"=>BuscarAccion($reg)
+               "3"=>$reg->Produccion_Diaria.' Unidades',
+               "4"=>$reg->fechaRegistro,
+               "5"=>BuscarAccion($reg)
             );
          }
          $results = array(

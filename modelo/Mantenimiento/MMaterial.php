@@ -25,15 +25,15 @@
           }
           return validarDatos($sql);
       }
-      public function RegistroMaterial($idMaterial,$MaterialNombre,$MaterialEstado,$login_idLog){
+      public function RegistroMaterial($idMaterial,$MaterialNombre,$MaterialEstado,$MaterialPedidos,$login_idLog){
         $sql="";
 
         if($idMaterial=="" || $idMaterial==null || empty($idMaterial)){
-             $sql="CALL `SP_MATERIAL_REGISTRO`('$MaterialNombre','$MaterialEstado','$login_idLog');";
+             $sql="CALL `SP_MATERIAL_REGISTRO`('$MaterialNombre','$MaterialEstado','$login_idLog','$MaterialPedidos');";
 
         }else{
 
-             $sql="CALL `SP_MATERIAL_ACTUALIZAR`('$MaterialNombre','$MaterialEstado','$idMaterial','$login_idLog');";
+             $sql="CALL `SP_MATERIAL_ACTUALIZAR`('$MaterialNombre','$MaterialEstado','$idMaterial','$login_idLog','$MaterialPedidos');";
         }
 
          return ejecutarConsulta($sql);

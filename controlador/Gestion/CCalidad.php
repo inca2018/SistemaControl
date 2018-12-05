@@ -30,6 +30,9 @@
     $TipoRechazo=isset($_POST["TipoRechazo"])?limpiarCadena($_POST["TipoRechazo"]):"";
     $Observacion=isset($_POST["Observacion"])?limpiarCadena($_POST["Observacion"]):"";
 
+    $NumeroCierre=isset($_POST["NumeroCierre"])?limpiarCadena($_POST["NumeroCierre"]):"";
+    $ObsCierre=isset($_POST["ObsCierre"])?limpiarCadena($_POST["ObsCierre"]):"";
+
     function BuscarEstado($reg){
 
        if($reg->Estado_idEstado=='5' || $reg->Estado_idEstado==5){
@@ -205,7 +208,7 @@
       case 'Finalizar':
          $rspta = array("Mensaje"=>"","Finalizar"=>false);
          /*------ Cuando el usuario ya se esta facturando, ya no se puede eliminar --------*/
-         $rspta['Finalizar']=$gestion->Finalizar($idOrden);
+         $rspta['Finalizar']=$gestion->Finalizar($idOrden,$NumeroCierre,$ObsCierre);
 
          $rspta['Finalizar']?$rspta['Mensaje']="Orden Aprobado Correctamente.":$rspta['Mensaje']="Orden no se pudo aprobar comuniquese con el area de soporte";
          echo json_encode($rspta);

@@ -37,6 +37,7 @@
                                                     <th data-priority="1">#</th>
                                                     <th>ESTADO</th>
                                                     <th>NOMBRE DE MATERIAL</th>
+                                                    <th>PRODUCCIÓN DIARIA REQ.</th>
                                                     <th>REGISTRO</th>
                                                     <th>ACCION</th>
                                                 </tr>
@@ -85,7 +86,7 @@
 					      <div class="col-md-12   bl">
 
                                 <div class="row">
-                                      <div class="col-md-6 br">
+                                      <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="MaterialNombre" class="col-md-5 col-form-label"><i class="fas fa-bookmark fa-lg mr-3"></i> Material<span class="red">*</span>:</label>
                                             <div class="col-md-7">
@@ -94,7 +95,16 @@
                                             </div>
                                         </div>
                                     </div>
-											  <div class="col-md-6 br">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="MaterialNombre" class="col-md-5 col-form-label">Numero de Pedidos Diarios:</label>
+                                            <div class="col-md-7">
+                                                <input class="form-control validarPanel" id="MaterialPedidos" name="MaterialPedidos" data-message="- Campo  Numero de Pedidos"  placeholder="Numero de Pedidos" type="text" onkeypress="return SoloNumerosModificado(event,9,this.id);">
+
+                                            </div>
+                                        </div>
+                                    </div>
+											  <div class="col-md-6  ">
                                         <div class="form-group row">
                                             <label for="MaterialEstado" class="col-md-5 col-form-label"><i class="fa fa-sun fa-lg mr-3"></i>Estado<span class="red">*</span>:</label>
                                             <div class="col-md-7">

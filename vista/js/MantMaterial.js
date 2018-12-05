@@ -177,6 +177,7 @@ function RecuperarMaterial(idMaterial){
 	$("#idMaterial").val(data.idMaterial);
 	$("#MaterialNombre").val(data.Descripcion);
 	$("#MaterialEstado").val(data.Estado_idEstado);
+   $("#MaterialPedidos").val(data.Produccion_Diaria);
 
 	});
 }

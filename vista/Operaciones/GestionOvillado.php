@@ -30,7 +30,7 @@ if( isset($_POST["idOrden"]) ){
                     <div class="col-md-2 ">
                         <button class="btn btn-info btn-block btn-sm" onclick="Volver();"><i class="fas fa-chevron-left mr-1"></i>Volver a lista de Ordenes</button>
                     </div>
-                    <div class="col-md-2 offset-8">
+                    <div class="col-md-3 offset-7">
                         <button class="btn btn-success btn-block btn-sm" onclick="NuevoOvillado();"><i class="fa fa-plus fa-lg mr-2"></i> Nuevo Orden de Trabajo</button>
                     </div>
                 </div>
@@ -50,6 +50,7 @@ if( isset($_POST["idOrden"]) ){
                                             <th>Material</th>
                                             <th>Orden de Trabajo</th>
                                             <th>Cant. de Ovillos</th>
+                                            <th>Producción Diaria</th>
                                             <th>Peso Ovillo</th>
                                             <th>Lote Ovillo</th>
                                             <th>F.Registro</th>
@@ -92,7 +93,10 @@ if( isset($_POST["idOrden"]) ){
                         <div class="col-md-3">
                             <label class=""><span class="red">(*) Campos Obligatorios</span></label>
                         </div>
-                        <div class="col-md-1 offset-8">
+                         <div class="col-md-8">
+                            <label id="totales"></label>
+                        </div>
+                        <div class="col-md-1">
                             <button type="button" class="btn btn-info btn-sm btn-display" title="Limpiar Campos" onclick="LimpiarOvillado();">
                                 <i class="fa fa-trash-alt fa-lg "></i>
                             </button>
@@ -112,7 +116,7 @@ if( isset($_POST["idOrden"]) ){
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6  ">
                                     <div class="form-group row">
                                         <label for="OvilloTrabajador" class="col-md-5 col-form-label">Trabajador<span class="red">*</span>:</label>
                                         <div class="col-md-7">
@@ -161,11 +165,20 @@ if( isset($_POST["idOrden"]) ){
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label for="OvilladoProduccion" class="col-md-5 col-form-label">Producción del Dia:</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control validarPanel" id="OvilladoProduccion" name="OvilladoProduccion" data-message="- Campo  Producción del Dia" placeholder="Producción de Ovillado" type="text" onkeypress="return SoloNumerosModificado(event,8,this.id);">
+
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-12">
 
                                         <label for="EnconadoNumero" class="  col-form-label">Observaciones Adicionales:</label>
-                                        <textarea class="form-control validarPanel" id="OvilladoObservacion" name="OvilladoObservacion"></textarea>
+                                        <textarea class="form-control " id="OvilladoObservacion" name="OvilladoObservacion"></textarea>
 
                                 </div>
 

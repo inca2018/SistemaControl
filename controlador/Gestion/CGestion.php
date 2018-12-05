@@ -24,10 +24,78 @@
     $UsuarioPassNuevo=isset($_POST["UsuarioPassNuevo"])?limpiarCadena($_POST["UsuarioPassNuevo"]):"";
 
 
+    $Inicio=isset($_POST["Inicio"])?limpiarCadena($_POST["Inicio"]):"";
+    $Fin=isset($_POST["Fin"])?limpiarCadena($_POST["Fin"]):"";
+
+
     $date = str_replace('/', '-', $fechaInicio);
     $fechaInicio = date("Y-m-d", strtotime($date));
  	 $date = str_replace('/', '-', $fechaFin);
     $fechaFin = date("Y-m-d", strtotime($date));
+
+
+    $date = str_replace('/', '-', $Inicio);
+    $Inicio = date("Y-m-d", strtotime($date));
+
+    $date = str_replace('/', '-', $Fin);
+    $Fin = date("Y-m-d", strtotime($date));
+
+function Verificar($reg){
+    if($reg->TotalEntregado==0){
+        return number_format(0,2);
+    }else{
+        return  number_format(($reg->TotalEntregado/$reg->TotalPedido)*100,2);
+    }
+
+}
+function Verificar2($reg){
+    if($reg->Promedio1==0){
+        return number_format(0,2);
+    }else{
+        return  number_format(($reg->Promedio1/$reg->Promedio2)*100,2);
+    }
+
+}
+
+
+function VerificarPendiente($reg,$cont){
+    if($cont==1){
+        return 0;
+    }else{
+        return number_format($reg->TotalAnterior-$reg->ResultadoAlcanzadoAnterior,2);
+    }
+}
+
+function VerificarProduccion($reg,$cont){
+        return number_format($reg->ProduccionDia,2);
+}
+
+function VerificarTotal($reg,$cont){
+     if($cont==1){
+        return 0;
+    }else{
+        return number_format($reg->ProduccionDia-$reg->ResultadoAlcanzado+($reg->ProAnterior-$reg->ResultadoAlcanzadoAnterior),2);
+    }
+}
+
+function VerificarTotal2($reg,$cont){
+     if($cont==1){
+        return 0;
+    }else{
+        return number_format($reg->ProduccionDia+($reg->ProduccionDia-$reg->ResultadoAlcanzado+($reg->ProAnterior-$reg->ResultadoAlcanzadoAnterior)),2);
+    }
+}
+
+function VerificarTotal3($reg,$cont){
+     if($reg->ResultadoAlcanzado==0){
+        return 0;
+    }else{
+        $resuTotal=$reg->ProduccionDia+($reg->ProduccionDia-$reg->ResultadoAlcanzado+($reg->ProAnterior-$reg->ResultadoAlcanzadoAnterior));
+        return number_format(($reg->ResultadoAlcanzado/$resuTotal)*100,2);
+    }
+}
+
+
 
 
    switch($_GET['op']){
@@ -63,6 +131,59 @@
 
          echo json_encode($rspta);
       break;
+
+
+
+     case 'ListarReportes1':
+         $rspta=$gestion->BuscarReporteIndicadores1($Inicio,$Fin);
+         $data= array();
+         $count=1;
+         while ($reg=$rspta->fetch_object()){
+         $data[]=array(
+               "0"=>"",
+               "1"=>$reg->Fecha,
+               "2"=>$reg->Material,
+               "3"=>number_format($reg->TotalEntregado,2),
+               "4"=>number_format($reg->TotalPedido,2),
+               "5"=>Verificar($reg),
+               "6"=>Verificar2($reg)
+            );
+         }
+         $results = array(
+            "sEcho"=>1, //Información para el datatables
+            "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+            "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+            "aaData"=>$data);
+         echo json_encode($results);
+      break;
+
+     case 'ListarReportes2':
+         $rspta=$gestion->BuscarReporteIndicadores2($Inicio,$Fin);
+         $data= array();
+         $count=1;
+         while ($reg=$rspta->fetch_object()){
+         $data[]=array(
+               "0"=>"",
+               "1"=>$reg->Fecha,
+               "2"=>$reg->Persona,
+               "3"=>number_format($reg->ResultadoAlcanzado,2),
+               "4"=>number_format($reg->ProduccionDia,2),
+               "5"=>VerificarPendiente($reg,$count),
+               "6"=>VerificarProduccion($reg,$count),
+                "7"=>VerificarTotal($reg,$count),
+                "8"=>VerificarTotal2($reg,$count),
+                "9"=>VerificarTotal3($reg,$count)
+            );
+            $count++;
+         }
+         $results = array(
+            "sEcho"=>1, //Información para el datatables
+            "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+            "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+            "aaData"=>$data);
+         echo json_encode($results);
+      break;
+
 
    }
 

@@ -89,6 +89,9 @@ function NuevoOvillado() {
     $("#tituloModalOvillado").append("Nuevo Orden de Trabajo de Ovillado:");
     RecuperarCorrelativo();
     RecuperarMaterial();
+
+    var idOrden=$("#idOrden").val();
+    RecuperarTotales(idOrden);
 }
 function RecuperarCorrelativo() {
     //solicitud de recuperar Proveedor
@@ -195,6 +198,9 @@ function EditarOvillado(idGestionOvillo){
     $("#tituloModalOvillado").empty();
     $("#tituloModalOvillado").append("Editar Orden de Trabajo:");
     RecuperarOvillado(idGestionOvillo);
+
+    var idOrden=$("#idOrden").val();
+    RecuperarTotales(idOrden);
 }
 
 function RecuperarOvillado(idGestionOvillo) {
@@ -212,6 +218,8 @@ function RecuperarOvillado(idGestionOvillo) {
             $("#OvilladoPeso").val(data.PesoOvillo);
             $("#OvilladoLote").val(data.LoteOvillo);
             $("#OvilladoCantidad").val(data.Cantidadovillos);
+            $("#OvilladoProduccion").val(data.ProduccionDia);
+
               $("#OvilladoObservacion").val(data.Observaciones);
 
  				$('#OvilloTrabajador').val(data.Persona_idPersona).trigger('change');
@@ -221,6 +229,17 @@ function RecuperarOvillado(idGestionOvillo) {
     });
 }
 
+function RecuperarTotales(idOrden) {
+    //solicitud de recuperar Proveedor
+    $.post("../../controlador/Gestion/COvillado.php?op=RecuperarTotales", {
+        "idOrden": idOrden
+    }, function (data, status) {
+        data = JSON.parse(data);
+        console.log(data);
+        $("#totales").empty();
+        $("#totales").text("Total de Ovillos Max.: "+data.TotalMaxOvillos+" Unidades - Total Ovillos Producidos: "+data.CantidadProducido+" Unidades.");
+    });
+}
 function EliminarOvillado(idOvilladoGestion) {
     swal({
         title: "Eliminar?",

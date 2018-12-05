@@ -276,29 +276,33 @@ function DevolverOvillado(idOrden) {
 
 
 function Finalizar(idOrden) {
-    swal({
-        title: "Aprobar?",
-        text: "Esta Seguro que desea Aprobar Orden de Trabajo!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Si, Aprobar!",
-        closeOnConfirm: false
-    }, function () {
-        ajaxFinalizar(idOrden);
-    });
+     $("#ModalAprobacion").modal("show");
+     $("#idOrdenCierre").val(idOrden);
+
 }
 
-function ajaxFinalizar(idOrden) {
+
+function EnviarCierre(){
+    var idOrdenCierre=$("#idOrdenCierre").val();
+    var numDescarte=$("#CierrDescarte").val();
+    var obsCierre=$("#CierreObservacion").val();
+    ajaxFinalizar(idOrdenCierre,numDescarte,obsCierre);
+}
+
+function ajaxFinalizar(idOrdenCierre,numDescarte,obsCierre) {
     $.post("../../controlador/Gestion/CCalidad.php?op=Finalizar", {
-        idOrden: idOrden
+        idOrden: idOrdenCierre,
+        NumeroCierre:numDescarte,
+        ObsCierre:obsCierre
     }, function (data, e) {
         data = JSON.parse(data);
         var Finalizar = data.Finalizar;
         var Mensaje = data.Mensaje;
         if (!Finalizar) {
+             $("#ModalAprobacion").modal("hide");
             swal("Error", Mensaje, "error");
         } else {
+              $("#ModalAprobacion").modal("hide");
             swal("Aprobado!", Mensaje, "success");
             tablaCalidad.ajax.reload();
         }

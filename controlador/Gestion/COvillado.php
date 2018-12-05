@@ -23,7 +23,9 @@
 	$OvilladoPeso=isset($_POST["OvilladoPeso"])?limpiarCadena($_POST["OvilladoPeso"]):"";
 	$OvilladoLote=isset($_POST["OvilladoLote"])?limpiarCadena($_POST["OvilladoLote"]):"";
 	$OvilladoCantidad=isset($_POST["OvilladoCantidad"])?limpiarCadena($_POST["OvilladoCantidad"]):"";
-$OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["OvilladoObservacion"]):"";
+$OvilladoProduccion=isset($_POST["OvilladoProduccion"])?limpiarCadena($_POST["OvilladoProduccion"]):"";
+
+    $OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["OvilladoObservacion"]):"";
 
 	$OvilladoMaterial=isset($_POST["idMaterialOculto"])?limpiarCadena($_POST["idMaterialOculto"]):"";
 
@@ -97,7 +99,7 @@ $OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Orden de Trabajo de Ovillado.";
                 }else{
-                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion);
+                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion,$OvilladoProduccion);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Orden Trabajo de Ovillado se registro Correctamente.";
@@ -111,7 +113,7 @@ $OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Orden Trabajo de Ovillado.";
                 }else{
-                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion);
+                    $RespuestaRegistro=$gestion->RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion,$OvilladoProduccion);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Orden Trabajo de Ovillado se Actualizo Correctamente.";
@@ -141,7 +143,7 @@ $OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["
        break;
 		 case 'listar_trabajadores':
 
-      		$rpta = $general->Listar_Personas_Todo();
+      		$rpta = $general->Listar_Personas_Trabajadores();
             echo '<option value="0"> -- SELECCIONE -- </option> ';
          	while ($reg = $rpta->fetch_object()){
 					echo '<option   value=' . $reg->idPersona. '>' . $reg->nombrePersona.' '.$reg->apellidoPaterno.' '.$reg->apellidoMaterno.' DNI: '.$reg->DNI. '</option>';
@@ -185,10 +187,11 @@ $OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["
 					"4"=>$reg->NombreMaterial,
 					"5"=>$reg->cod_trabajo,
 					"6"=>$reg->Cantidadovillos,
-				   "7"=>$reg->PesoOvillo,
-					"8"=>$reg->LoteOvillo,
-					"9"=>$reg->fechaRegistro,
-					"10"=>BuscarAccion2($reg)
+               "7"=>$reg->ProduccionDia,
+				   "8"=>$reg->PesoOvillo,
+					"9"=>$reg->LoteOvillo,
+					"10"=>$reg->fechaRegistro,
+					"11"=>BuscarAccion2($reg)
             );
          }
 
@@ -238,6 +241,12 @@ $OvilladoObservacion=isset($_POST["OvilladoObservacion"])?limpiarCadena($_POST["
 			$rspta=$gestion->Recuperar_Ovillado($idOvilladoGestion);
          echo json_encode($rspta);
       break;
+       case 'RecuperarTotales':
+			$rspta=$gestion->RecuperarTotales($idOrden);
+         echo json_encode($rspta);
+      break;
+
+
 
 		 case 'RecuperarCorrelativo':
 			$rspta=$gestion->RecuperarCorrelativo();

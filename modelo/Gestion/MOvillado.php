@@ -29,17 +29,17 @@
            return ejecutarConsulta($sql);
        }
 
-      public function RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion){
+      public function RegistroOvillado($idOrden,$idOvilladoGestion,$OvilladoNombre,$OvilloTrabajador,$OvilladoMaterial,$OvilladoPeso,$OvilladoLote,$OvilladoCantidad,$OvilladoObservacion,$OvilladoProduccion){
         $sql="";
 
           if($OvilladoObservacion=="" || $OvilladoObservacion==null || empty($OvilladoObservacion)){
               $OvilladoObservacion="-1";
           }
         if($idOvilladoGestion=="" || $idOvilladoGestion==null || empty($idOvilladoGestion)){
-             $sql="CALL `SP_GESTION_REGISTRO`('$idOrden','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoMaterial','$OvilladoCantidad','$OvilloTrabajador','$OvilladoObservacion');";
+             $sql="CALL `SP_GESTION_REGISTRO`('$idOrden','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoMaterial','$OvilladoCantidad','$OvilloTrabajador','$OvilladoObservacion','$OvilladoProduccion');";
 
         }else{
-             $sql="CALL `SP_GESTION_ACTUALIZAR`('$idOvilladoGestion','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoCantidad','$OvilloTrabajador','$OvilladoObservacion');";
+             $sql="CALL `SP_GESTION_ACTUALIZAR`('$idOvilladoGestion','$OvilladoPeso','$OvilladoLote','$OvilladoNombre','$OvilladoCantidad','$OvilloTrabajador','$OvilladoObservacion','$OvilladoProduccion');";
         }
 
          return ejecutarConsulta($sql);
@@ -50,6 +50,12 @@
 
 			return ejecutarConsultaSimpleFila($sql);
 		}
+
+      public function RecuperarTotales($idOvilladoGestion){
+          $sql="SELECT (ord.NumConos*10) as TotalMaxOvillos,IFNULL((SELECT SUM(ov.Cantidadovillos)  from ovillado ov WHERE ov.Orden_idOrden=ord.idOrden),'0') as CantidadProducido FROM orden ord WHERE ord.idOrden=$idOvilladoGestion;";
+			return ejecutarConsultaSimpleFila($sql);
+      }
+
       public function Enviar_Calidad($idEnconado){
 			$sql="UPDATE `orden` SET `Estado_idEstado`=6 WHERE `idOrden`='$idEnconado' ";
 			return ejecutarConsulta($sql);

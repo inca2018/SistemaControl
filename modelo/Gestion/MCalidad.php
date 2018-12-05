@@ -25,8 +25,12 @@
            return ejecutarConsulta($sql);
       }
 
-     public function Finalizar($idOrden){
-         $sql="UPDATE `orden` SET  `Estado_idEstado`=7 WHERE `idOrden`='$idOrden'";
+     public function Finalizar($idOrden,$NumeroCierre,$ObsCierre){
+         if($NumeroCierre=="" || $NumeroCierre==0){
+             $NumeroCierre=0;
+         }
+         $sql="UPDATE `orden` SET  `Estado_idEstado`=7 , `NumDescarte`=$NumeroCierre,`ObsCierre`='$ObsCierre',`FechaCierre`=NOW() WHERE `idOrden`='$idOrden'";
+
          return ejecutarConsulta($sql);
      }
    }

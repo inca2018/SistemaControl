@@ -20,6 +20,8 @@
 		$EnconadoNumero=isset($_POST["EnconadoNumero"])?limpiarCadena($_POST["EnconadoNumero"]):"";
         $EnconadoObservacion=isset($_POST["EnconadoObservacion"])?limpiarCadena($_POST["EnconadoObservacion"]):"";
 
+$EnconadoPedido=isset($_POST["EnconadoPedido"])?limpiarCadena($_POST["EnconadoPedido"]):"";
+
 
     function BuscarEstado($reg){
 
@@ -71,7 +73,7 @@
                 if($rspta["Error"]){
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Enconado.";
                 }else{
-                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog,$EnconadoObservacion);
+                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog,$EnconadoObservacion,$EnconadoPedido);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Enconado se registro Correctamente.";
@@ -86,7 +88,7 @@
                     $rspta["Mensaje"].="Por estas razones no se puede Registrar el Enconado.";
                 }else{
 
-                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog,$EnconadoObservacion);
+                    $RespuestaRegistro=$gestion->RegistroEnconado($idEnconado,$EnconadoNombre,$EnconadoMaterial,$EnconadoLote,$EnconadoKilos,$EnconadoNumero,$login_idLog,$EnconadoObservacion,$EnconadoPedido);
                     if($RespuestaRegistro){
                         $rspta["Registro"]=true;
                         $rspta["Mensaje"]="Enconado se Actualizo Correctamente.";
@@ -128,8 +130,9 @@
 					"4"=>$reg->Lote,
 					"5"=>$reg->Kilos,
 					"6"=>$reg->NumConos,
-				   "7"=>$reg->fechaRegistro,
-					"8"=>BuscarAccion($reg)
+               "7"=>$reg->PedidoOvillo,
+				   "8"=>$reg->fechaRegistro,
+					"9"=>BuscarAccion($reg)
             );
          }
          $results = array(

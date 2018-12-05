@@ -39,6 +39,7 @@
                                             <th>LOTE</th>
                                             <th>KILOS</th>
                                             <th>N° DE CONO</th>
+                                            <th>N° DE PEDIDO</th>
                                             <th>F.REGISTRO</th>
                                             <th>ACCIONES</th>
                                         </tr>
@@ -131,6 +132,15 @@
                                         <label for="EnconadoNumero" class="col-md-5 col-form-label">Numero de Conos:</label>
                                         <div class="col-md-7">
                                             <input class="form-control validarPanel" id="EnconadoNumero" name="EnconadoNumero" data-message="- Campo  Numero de Enconado" placeholder="Numero de Enconado" type="text" onkeypress="return SoloNumerosModificado(event,8,this.id);">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label for="EnconadoPedido" class="col-md-5 col-form-label">Nº Ovillos Solicitados:</label>
+                                        <div class="col-md-7">
+                                            <input class="form-control validarPanel" id="EnconadoPedido" name="EnconadoPedido" data-message="- Campo  Numero de Ovillos Solicitados" placeholder="Numero de Ovillos Solicitados" type="text" onkeypress="return SoloNumerosModificado(event,8,this.id);">
 
                                         </div>
                                     </div>

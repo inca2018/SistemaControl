@@ -198,11 +198,12 @@
 							</a>
 							<ul class="sidebar-nav sidebar-subnav collapse" id="multilevelServicios">
 
-								<li id="Asignacion" class="">
-									<a href="<?php echo  $conexionConfig->rutaOP().'vista/Reporte/Indicadores.php';?>" title="Indicadores">
+								<!-- <li id="Asignacion" class="">
+									<a href="<?php // echo  $conexionConfig->rutaOP().'vista/Reporte/Indicadores.php';?>" title="Indicadores">
 										<span>Indicadores</span>
 									</a>
-								</li>
+								</li> -->
+
 								<li id="GeneracionFactura" class=" ">
 									<a href="<?php echo  $conexionConfig->rutaOP().'vista/Reporte/Reporte.php';?>" title="Reporte">
 										<span>Reportes</span>
