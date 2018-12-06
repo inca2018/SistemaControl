@@ -71,19 +71,15 @@ function VerificarProduccion($reg,$cont){
 }
 
 function VerificarTotal($reg,$cont){
-     if($cont==1){
-        return 0;
-    }else{
+
         return number_format($reg->ProduccionDia-$reg->ResultadoAlcanzado+($reg->ProAnterior-$reg->ResultadoAlcanzadoAnterior),2);
-    }
+
 }
 
 function VerificarTotal2($reg,$cont){
-     if($cont==1){
-        return 0;
-    }else{
+
         return number_format($reg->ProduccionDia+($reg->ProduccionDia-$reg->ResultadoAlcanzado+($reg->ProAnterior-$reg->ResultadoAlcanzadoAnterior)),2);
-    }
+
 }
 
 function VerificarTotal3($reg,$cont){
