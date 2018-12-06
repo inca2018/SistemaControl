@@ -32,8 +32,8 @@
 											<th>MATERIAL</th>
 											<th>LOTE</th>
 											<th>KILOS</th>
-											<th>TRABAJADOR</th>
-											<th>N° DE CONO</th>
+											<th>N° DE CONOS</th>
+											<th>FECHA</th>
 											<th>ACCIONES</th>
 										</tr>
 									</thead>
