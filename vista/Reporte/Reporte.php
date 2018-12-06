@@ -63,16 +63,16 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table my-4 w-100 table-hover table-sm dt-responsive" id="tabla_Detalles1" style="font-size:10px">
+                                <table class="table my-4 w-100 table-hover table-sm dt-responsive" id="tabla_Detalles1" style="font-size:9px">
                                     <thead class="thead-light">
                                        <tr>
                                             <th  width="10%" data-priority="1">#</th>
                                             <th width="15%">Fecha</th>
-                                            <th width="15%">Unidad de Analisis(UA)</th>
+                                            <th width="30%">Unidad de Analisis(UA)</th>
                                             <th width="15%">Nº Pedidos Entregados(NPEC)</th>
-                                            <th width="15%">Total de Pedidos Solicitados(NTPS)</th>
-                                            <th width="15%">% Cumplimiento de Entrega</th>
-                                            <th width="15%">% Por Dia</th>
+                                            <th width="10%">Total de Pedidos Solicitados(NTPS)</th>
+                                            <th width="10%">% Cumplimiento de Entrega</th>
+                                            <th width="10%">% Por Dia</th>
                                         </tr>
 
                                     </thead>
@@ -87,18 +87,18 @@
                          <h4 class="modal-title mt-3 mb-3 bb" id="myModalLabelLarge">Indice de Eficacia: </h4>
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table my-4 w-100 table-hover table-sm dt-responsive " id="tabla_Detalles2" style="font-size:10px">
+                                <table class="table my-4 w-100 table-hover table-sm dt-responsive " id="tabla_Detalles2" style="font-size:9px">
                                     <thead class="thead-light">
 													<tr>
-                                            <th width="5%" data-priority="1">#</th>
-                                            <th width="10%">Fecha</th>
-                                            <th width="25%">Empleado</th>
-                                            <th width="10%">Resultado Alcanzado(RA)</th>
-                                            <th width="10%">Producción del Dia(PD)</th>
-                                            <th width="10%">Producción Pendiente(PP)</th>
-                                            <th width="10%">Total(PP+PD=RE)</th>
-                                            <th width="10%">(RA/RE)</th>
-                                            <th width="10%">% Por Dia</th>
+                                            <th width="8%" data-priority="1">#</th>
+                                            <th width="15%">Fecha</th>
+                                            <th width="35%">Empleado</th>
+                                            <th width="7%">Resultado Alcanzado (RA)</th>
+                                            <th width="7%">Producción del Dia (PD)</th>
+                                            <th width="7%">Producción Pendiente (PP)</th>
+                                            <th width="7%">Total (PP+PD=RE)</th>
+                                            <th width="7%">(RA/RE)</th>
+                                            <th width="7%">% Por Dia</th>
                                         </tr>
                                     </thead>
                                     <tbody id="body_detalles2">

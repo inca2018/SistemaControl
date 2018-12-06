@@ -44,7 +44,7 @@ function Verificar($reg){
     if($reg->TotalEntregado==0){
         return number_format(0,2);
     }else{
-        return  number_format(($reg->TotalEntregado/$reg->TotalPedido)*100,2);
+        return  number_format(round(($reg->TotalEntregado/$reg->TotalPedido)*100,2),1);
     }
 
 }
@@ -52,7 +52,7 @@ function Verificar2($reg){
     if($reg->Promedio1==0){
         return number_format(0,2);
     }else{
-        return  number_format(($reg->Promedio1/$reg->Promedio2)*100,2);
+        return  number_format(round($reg->Promedio1,2),1);
     }
 
 }
